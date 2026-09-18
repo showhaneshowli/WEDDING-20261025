@@ -26,10 +26,10 @@
             width: 100%;
             text-align: center;
             margin-top: 20px;
-            border-top: 5px solid #d4af37;
+            border-top: 5px solid #d88c9a;
         }
         h1 {
-            color: #d4af37;
+            color: #d88c9a;
             font-size: 24px;
             margin-bottom: 10px;
         }
@@ -49,10 +49,10 @@
             outline: none;
         }
         input[type="text"]:focus {
-            border-color: #d4af37;
+            border-color: #d88c9a;
         }
         button {
-            background-color: #d4af37;
+            background-color: #d88c9a;
             color: #fff;
             border: none;
             padding: 12px 20px;
@@ -63,7 +63,7 @@
             transition: background 0.3s;
         }
         button:hover {
-            background-color: #bfa030;
+            background-color: #c47b85;
         }
         #result {
             margin-top: 20px;
@@ -71,7 +71,7 @@
         }
         .result-card {
             background: #fdfaf6;
-            border: 1px solid #eedc9a;
+            border: 1px solid #f2d5d8;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -79,7 +79,7 @@
         }
         .result-card h3 {
             margin: 0 0 10px 0;
-            color: #d4af37;
+            color: #d88c9a;
             font-size: 22px;
         }
         .result-details {
@@ -141,13 +141,6 @@
             color: #888;
             margin-bottom: 5px;
         }
-        .side-title {
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 5px;
-        }
         .red-carpet {
             width: 15%;
             background: repeating-linear-gradient(
@@ -186,20 +179,29 @@
             transition: all 0.3s;
         }
         .table.highlight {
-            background-color: #d4af37;
+            background-color: #d88c9a;
             color: #fff;
             border-color: #bfa030;
             transform: scale(1.3);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+            box-shadow: 0 0 10px rgba(216, 140, 154, 0.6);
             font-weight: bold;
             z-index: 10;
         }
-    </style>
+    
+        .banner-img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+</style>
 </head>
 <body>
 
     <div class="container">
-        <h1>HaoYun &amp; Emma WEDDING 婚宴座位查詢</h1>
+        <img src="haoyunEmma.jpg" alt="HaoYun & Emma Wedding" class="banner-img">
+        <h1>婚宴座位查詢</h1>
         <p class="subtitle">歡迎蒞臨！請輸入您的姓名查詢桌號</p>
 
         <input type="text" id="nameInput" placeholder="請輸入姓名 (例如: 王小明)" onkeypress="handleKeyPress(event)">
@@ -212,12 +214,10 @@
             <div class="floor-plan">
                 <div class="side" id="brideSide">
                     <div class="side-title">女方親友</div>
-                    <!-- Tables injected via JS -->
                 </div>
                 <div class="red-carpet"></div>
                 <div class="side" id="groomSide">
                     <div class="side-title">男方親友</div>
-                    <!-- Tables injected via JS -->
                 </div>
             </div>
         </div>
@@ -233,7 +233,6 @@
             const brideDiv = document.getElementById('brideSide');
             const groomDiv = document.getElementById('groomSide');
             
-            // Clean up old tables
             brideDiv.querySelectorAll('.table').forEach(e => e.remove());
             groomDiv.querySelectorAll('.table').forEach(e => e.remove());
 
@@ -254,7 +253,6 @@
             });
         }
 
-        // Initialize map on load
         initMap();
 
         function searchGuest() {
@@ -264,7 +262,6 @@
             
             resultDiv.innerHTML = '';
             
-            // Reset map highlights
             document.querySelectorAll('.table').forEach(el => el.classList.remove('highlight'));
 
             if (!input) {
@@ -276,7 +273,6 @@
             const results = guestData.filter(g => g.姓名.includes(input));
 
             if (results.length > 0) {
-                // We'll show the first matching guest's map location
                 const guest = results[0];
                 
                 let html = '';
@@ -285,7 +281,7 @@
                         <div class="result-card">
                             <h3>${g.姓名}</h3>
                             <div class="result-details">
-                                <p><strong>桌號：</strong> 第 <span style="color:#d4af37; font-size: 18px; font-weight:bold;">${g.桌號}</span> 桌</p>
+                                <p><strong>桌號：</strong> 第 <span style="color:#d88c9a; font-size: 18px; font-weight:bold;">${g.桌號}</span> 桌</p>
                                 <p><strong>桌別：</strong> ${g.桌別}</p>
                                 <p><strong>賓客方：</strong> ${g.Side}</p>
                                 <p><strong>人數：</strong> ${g.人數} 位</p>
@@ -295,10 +291,8 @@
                 });
                 resultDiv.innerHTML = html;
                 
-                // Show Map and Highlight Table
                 mapContainer.style.display = 'flex';
                 
-                // Highlight the tables (if multiple people matched, highlight all their tables)
                 results.forEach(g => {
                     const tableEl = document.getElementById('table-' + g.桌號);
                     if (tableEl) {
