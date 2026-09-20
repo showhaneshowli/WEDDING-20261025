@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HaoYun &amp; Emma WEDDING</title>
+    <meta name="theme-color" content="#d88c9a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="婚宴座位查詢">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-icon-192.png">
     <style>
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, 'Microsoft JhengHei', sans-serif;
@@ -310,6 +317,16 @@
             if (e.key === 'Enter') {
                 searchGuest();
             }
+        }
+    </script>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/sw.js").catch((error) => {
+                    console.error("Service worker registration failed:", error);
+                });
+            });
         }
     </script>
 </body>
